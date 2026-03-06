@@ -103,7 +103,87 @@
           {
             "group": "Reference",
             "pages": [
-              "base-chain/reference/json-rpc-api"
+              "base-chain/reference/json-rpc-api",
+              {
+                "group": "Account & State",
+                "pages": [
+                  "base-chain/reference/rpc-methods/eth_blockNumber",
+                  "base-chain/reference/rpc-methods/eth_getBalance",
+                  "base-chain/reference/rpc-methods/eth_getTransactionCount",
+                  "base-chain/reference/rpc-methods/eth_getCode",
+                  "base-chain/reference/rpc-methods/eth_getStorageAt",
+                  "base-chain/reference/rpc-methods/eth_call"
+                ]
+              },
+              {
+                "group": "Blocks",
+                "pages": [
+                  "base-chain/reference/rpc-methods/eth_getBlockByNumber",
+                  "base-chain/reference/rpc-methods/eth_getBlockByHash",
+                  "base-chain/reference/rpc-methods/eth_getBlockReceipts",
+                  "base-chain/reference/rpc-methods/eth_getBlockTransactionCountByNumber",
+                  "base-chain/reference/rpc-methods/eth_getBlockTransactionCountByHash"
+                ]
+              },
+              {
+                "group": "Transactions",
+                "pages": [
+                  "base-chain/reference/rpc-methods/eth_getTransactionByHash",
+                  "base-chain/reference/rpc-methods/eth_getTransactionByBlockHashAndIndex",
+                  "base-chain/reference/rpc-methods/eth_getTransactionByBlockNumberAndIndex",
+                  "base-chain/reference/rpc-methods/eth_getTransactionReceipt",
+                  "base-chain/reference/rpc-methods/eth_sendRawTransaction"
+                ]
+              },
+              {
+                "group": "Gas & Fees",
+                "pages": [
+                  "base-chain/reference/rpc-methods/eth_gasPrice",
+                  "base-chain/reference/rpc-methods/eth_maxPriorityFeePerGas",
+                  "base-chain/reference/rpc-methods/eth_feeHistory",
+                  "base-chain/reference/rpc-methods/eth_estimateGas"
+                ]
+              },
+              {
+                "group": "Logs",
+                "pages": [
+                  "base-chain/reference/rpc-methods/eth_getLogs"
+                ]
+              },
+              {
+                "group": "Chain & Network",
+                "pages": [
+                  "base-chain/reference/rpc-methods/eth_chainId",
+                  "base-chain/reference/rpc-methods/eth_syncing",
+                  "base-chain/reference/rpc-methods/net_version",
+                  "base-chain/reference/rpc-methods/web3_clientVersion"
+                ]
+              },
+              {
+                "group": "Debug",
+                "pages": [
+                  "base-chain/reference/rpc-methods/debug_traceTransaction",
+                  "base-chain/reference/rpc-methods/debug_traceBlockByHash",
+                  "base-chain/reference/rpc-methods/debug_traceBlockByNumber"
+                ]
+              },
+              {
+                "group": "WebSocket",
+                "pages": [
+                  "base-chain/reference/rpc-methods/eth_subscribe",
+                  "base-chain/reference/rpc-methods/eth_unsubscribe"
+                ]
+              },
+              {
+                "group": "Flashblocks Methods",
+                "pages": [
+                  "base-chain/reference/rpc-methods/eth_simulateV1",
+                  "base-chain/reference/rpc-methods/base_transactionStatus",
+                  "base-chain/reference/rpc-methods/newFlashblockTransactions",
+                  "base-chain/reference/rpc-methods/pendingLogs",
+                  "base-chain/reference/rpc-methods/newFlashblocks"
+                ]
+              }
             ]
           },
           {
@@ -123,7 +203,6 @@
             "group": "Flashblocks",
             "pages": [
               "base-chain/flashblocks/apps",
-              "base-chain/flashblocks/api-reference",
               "base-chain/flashblocks/node-providers",
               "base-chain/flashblocks/docs"
             ]

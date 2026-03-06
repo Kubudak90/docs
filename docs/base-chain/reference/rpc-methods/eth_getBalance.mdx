@@ -1,0 +1,62 @@
+---
+title: 'eth_getBalance'
+sidebarTitle: 'eth_getBalance'
+description: 'Returns the ETH balance of a given address at a specified block.'
+---
+
+Returns the ETH balance of a given address at a specified block.
+
+## Parameters
+
+<ParamField body="address" type="string" required>
+  The 20-byte address to check the balance for.
+</ParamField>
+
+<ParamField body="blockParameter" type="string" required>
+  Block number in hexadecimal, or a block tag: `latest`, `earliest`, `pending`, `safe`, or `finalized`.
+</ParamField>
+
+## Returns
+
+<ResponseField name="result" type="string">
+  The account balance in wei as a hexadecimal string.
+</ResponseField>
+
+## Flashblocks Behavior
+
+On a [Flashblocks-aware endpoint](/base-chain/flashblocks/apps#rpc-endpoints), use `"pending"` as the block parameter to query preconfirmed state — data available up to 200ms before the next full block is sealed.
+
+Returns the account balance in the latest preconfirmed Flashblock state, reflecting balances from transactions not yet in a sealed block.
+
+<CodeGroup>
+```bash cURL (preconfirmed state)
+curl https://mainnet-preconf.base.org \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0xd3CdA913deB6f4967b2Ef66ae97DE114a83bcc01","pending"],"id":1}'
+```
+</CodeGroup>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBalance",
+  "params": [
+    "0x4200000000000000000000000000000000000006",
+    "latest"
+  ],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "0x2c68af0bb14000"
+}
+```
+</CodeGroup>

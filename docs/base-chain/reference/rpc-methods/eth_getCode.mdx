@@ -1,0 +1,47 @@
+---
+title: 'eth_getCode'
+sidebarTitle: 'eth_getCode'
+description: 'Returns the compiled bytecode stored at a given contract address.'
+---
+
+Returns the compiled bytecode stored at a given contract address. Returns `"0x"` for externally owned accounts (EOAs).
+
+## Parameters
+
+<ParamField body="address" type="string" required>
+  The 20-byte address (typically a smart contract).
+</ParamField>
+
+<ParamField body="blockParameter" type="string" required>
+  Block number in hexadecimal, or a block tag: `latest`, `earliest`, `pending`, `safe`, or `finalized`.
+</ParamField>
+
+## Returns
+
+<ResponseField name="result" type="string">
+  The bytecode at the address as a hex string. Returns `"0x"` if there is no code (EOA or self-destructed contract).
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getCode",
+  "params": [
+    "0x4200000000000000000000000000000000000006",
+    "latest"
+  ],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063..."
+}
+```
+</CodeGroup>

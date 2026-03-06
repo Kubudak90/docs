@@ -1,0 +1,42 @@
+---
+title: 'eth_getBlockTransactionCountByHash'
+sidebarTitle: 'eth_getBlockTransactionCountByHash'
+description: 'Returns the number of transactions in a block identified by block hash.'
+---
+
+Returns the number of transactions in a block identified by block hash.
+
+## Parameters
+
+<ParamField body="blockHash" type="string" required>
+  The 32-byte hash of the block.
+</ParamField>
+
+## Returns
+
+<ResponseField name="result" type="string | null">
+  The number of transactions in the block as a hexadecimal integer, or `null` if no block was found.
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockTransactionCountByHash",
+  "params": [
+    "0x3a4e8c5d7f2b1a6e9d0c4f8b3e7a2d5c8f1b4e7a0d3c6f9b2e5a8d1c4f7b0e3"
+  ],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "0x12"
+}
+```
+</CodeGroup>

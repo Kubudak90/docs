@@ -1,0 +1,63 @@
+---
+title: 'debug_traceBlockByNumber'
+sidebarTitle: 'debug_traceBlockByNumber'
+description: 'Replays all transactions in a block by number and returns an execution trace for each.'
+---
+
+<Info>
+Debug methods require a node with debug APIs enabled. Availability and rate limits vary by [node provider](/base-chain/tools/node-providers). These methods replay transactions and are computationally expensive — avoid calling them in hot paths.
+</Info>
+
+Replays all transactions in a block identified by its number and returns an execution trace for each transaction.
+
+## Parameters
+
+<ParamField body="blockParameter" type="string" required>
+  Block number in hexadecimal, or a block tag: `latest`, `earliest`, `safe`, or `finalized`.
+</ParamField>
+
+<ParamField body="traceOptions" type="object">
+  Optional trace configuration. Accepts the same fields as [`debug_traceTransaction`](/base-chain/reference/rpc-methods/debug_traceTransaction).
+</ParamField>
+
+## Returns
+
+<ResponseField name="result" type="array">
+  An array of trace result objects, one per transaction in the block. Same format as [`debug_traceBlockByHash`](/base-chain/reference/rpc-methods/debug_traceBlockByHash).
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlockByNumber",
+  "params": ["latest", { "tracer": "callTracer" }],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": [
+    {
+      "txHash": "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
+      "result": {
+        "type": "CALL",
+        "from": "0xd3cda913deb6f4967b2ef66ae97de114a83bcc01",
+        "to": "0x4200000000000000000000000000000000000006",
+        "value": "0x2c68af0bb14000",
+        "gas": "0x5208",
+        "gasUsed": "0x5208",
+        "input": "0x",
+        "output": "0x",
+        "calls": []
+      }
+    }
+  ]
+}
+```
+</CodeGroup>

@@ -1,0 +1,98 @@
+---
+title: 'eth_estimateGas'
+sidebarTitle: 'eth_estimateGas'
+description: 'Estimates the amount of gas required to execute a transaction.'
+---
+
+Estimates the amount of gas required to execute a transaction. The estimate may be higher than the gas actually used at execution time.
+
+## Parameters
+
+<ParamField body="transactionObject" type="object" required>
+  The transaction object to estimate gas for.
+
+  <Expandable title="Transaction object fields">
+    <ParamField body="from" type="string">
+      The 20-byte address the transaction is sent from. Optional.
+    </ParamField>
+    <ParamField body="to" type="string">
+      The 20-byte destination address. Required for contract calls; omit for contract deployments.
+    </ParamField>
+    <ParamField body="gas" type="string">
+      Gas limit for the estimate. Optional.
+    </ParamField>
+    <ParamField body="gasPrice" type="string">
+      Gas price in wei for legacy transactions. Optional.
+    </ParamField>
+    <ParamField body="maxFeePerGas" type="string">
+      EIP-1559 maximum total fee per gas. Optional.
+    </ParamField>
+    <ParamField body="maxPriorityFeePerGas" type="string">
+      EIP-1559 maximum priority fee per gas. Optional.
+    </ParamField>
+    <ParamField body="value" type="string">
+      ETH value to send with the transaction in wei. Optional.
+    </ParamField>
+    <ParamField body="data" type="string">
+      ABI-encoded call data. Optional.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="blockParameter" type="string">
+  Optional block to estimate against. Defaults to `latest`.
+</ParamField>
+
+## Returns
+
+<ResponseField name="result" type="string">
+  The estimated gas amount as a hexadecimal integer.
+</ResponseField>
+
+## Flashblocks Behavior
+
+On a [Flashblocks-aware endpoint](/base-chain/flashblocks/apps#rpc-endpoints), use `"pending"` as the block parameter to query preconfirmed state — data available up to 200ms before the next full block is sealed.
+
+Estimates gas against the latest preconfirmed Flashblock state. Use `"pending"` to get an estimate based on the most current state, reducing the chance of reverts due to stale state.
+
+<CodeGroup>
+```bash cURL (preconfirmed state)
+curl https://mainnet-preconf.base.org \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"eth_estimateGas","params":[{"from":"0xd3CdA913deB6f4967b2Ef66ae97DE114a83bcc01","to":"0x4200000000000000000000000000000000000006","value":"0x2c68af0bb14000"},"pending"],"id":1}'
+```
+</CodeGroup>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "eth_estimateGas",
+  "params": [
+    {
+      "from": "0xd3CdA913deB6f4967b2Ef66ae97DE114a83bcc01",
+      "to": "0x4200000000000000000000000000000000000006",
+      "value": "0x2c68af0bb14000"
+    }
+  ],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "0x5208"
+}
+```
+</CodeGroup>
+
+## Errors
+
+| Code | Message | Description |
+| --- | --- | --- |
+| `-32000` | execution reverted | The transaction would revert. The error data may contain a revert reason. |

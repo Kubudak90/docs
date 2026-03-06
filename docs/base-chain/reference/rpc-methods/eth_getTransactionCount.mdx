@@ -1,0 +1,62 @@
+---
+title: 'eth_getTransactionCount'
+sidebarTitle: 'eth_getTransactionCount'
+description: 'Returns the number of transactions sent from an address (the account nonce).'
+---
+
+Returns the number of transactions sent from an address — also known as the account nonce. Use the `pending` block parameter to include transactions that are in the mempool but not yet mined.
+
+## Parameters
+
+<ParamField body="address" type="string" required>
+  The 20-byte account address.
+</ParamField>
+
+<ParamField body="blockParameter" type="string" required>
+  Block number in hexadecimal, or a block tag: `latest`, `earliest`, `pending`, `safe`, or `finalized`.
+</ParamField>
+
+## Returns
+
+<ResponseField name="result" type="string">
+  The number of transactions sent from the address as a hexadecimal integer.
+</ResponseField>
+
+## Flashblocks Behavior
+
+On a [Flashblocks-aware endpoint](/base-chain/flashblocks/apps#rpc-endpoints), use `"pending"` as the block parameter to query preconfirmed state — data available up to 200ms before the next full block is sealed.
+
+Returns the account nonce including transactions preconfirmed in Flashblocks but not yet in a sealed block. Always use `"pending"` when building sequential transactions to avoid nonce gaps.
+
+<CodeGroup>
+```bash cURL (preconfirmed state)
+curl https://mainnet-preconf.base.org \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"eth_getTransactionCount","params":["0xd3CdA913deB6f4967b2Ef66ae97DE114a83bcc01","pending"],"id":1}'
+```
+</CodeGroup>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionCount",
+  "params": [
+    "0xd3CdA913deB6f4967b2Ef66ae97DE114a83bcc01",
+    "latest"
+  ],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "0x1b"
+}
+```
+</CodeGroup>

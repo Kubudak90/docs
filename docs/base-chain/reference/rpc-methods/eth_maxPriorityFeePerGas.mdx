@@ -1,0 +1,38 @@
+---
+title: 'eth_maxPriorityFeePerGas'
+sidebarTitle: 'eth_maxPriorityFeePerGas'
+description: 'Returns the suggested maxPriorityFeePerGas (tip) for EIP-1559 transactions.'
+---
+
+Returns the suggested `maxPriorityFeePerGas` (tip) for EIP-1559 transactions. Add this to the current `baseFeePerGas` to derive a `maxFeePerGas`.
+
+## Parameters
+
+No parameters.
+
+## Returns
+
+<ResponseField name="result" type="string">
+  Suggested priority fee per gas in wei as a hexadecimal string.
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "eth_maxPriorityFeePerGas",
+  "params": [],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "0x3b9aca00"
+}
+```
+</CodeGroup>

@@ -1,0 +1,62 @@
+---
+title: 'eth_syncing'
+sidebarTitle: 'eth_syncing'
+description: 'Returns the synchronization status of the node.'
+---
+
+Returns the synchronization status of the node.
+
+## Parameters
+
+No parameters.
+
+## Returns
+
+<ResponseField name="result" type="object | boolean">
+  Returns `false` if the node is fully synced with the network. Returns a sync status object if the node is still catching up.
+
+  <Expandable title="Sync status object fields (when syncing)">
+    <ResponseField name="startingBlock" type="string">
+      Block number where the current sync started.
+    </ResponseField>
+    <ResponseField name="currentBlock" type="string">
+      Current block the node has processed.
+    </ResponseField>
+    <ResponseField name="highestBlock" type="string">
+      Estimated highest block number on the network.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "eth_syncing",
+  "params": [],
+  "id": 1
+}
+```
+
+```json Response (synced)
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": false
+}
+```
+
+```json Response (syncing)
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "startingBlock": "0x0",
+    "currentBlock": "0x12ce000",
+    "highestBlock": "0x12ced28"
+  }
+}
+```
+</CodeGroup>

@@ -1,0 +1,79 @@
+---
+title: 'eth_feeHistory'
+sidebarTitle: 'eth_feeHistory'
+description: 'Returns historical base fees, gas usage ratios, and priority fee percentiles for a range of blocks.'
+---
+
+Returns historical base fees, gas usage ratios, and priority fee percentiles for a range of blocks. Useful for building accurate EIP-1559 fee estimates.
+
+## Parameters
+
+<ParamField body="blockCount" type="string | number" required>
+  Number of blocks to include in the history. Must be between 1 and 1024. Can be a decimal integer or a hex string (e.g., `4` or `"0x4"`).
+</ParamField>
+
+<ParamField body="newestBlock" type="string" required>
+  The newest block in the requested range. Block number in hexadecimal, or a block tag: `latest`, `safe`, or `finalized`.
+</ParamField>
+
+<ParamField body="rewardPercentiles" type="array">
+  Optional. An array of percentile values between 0 and 100. For each block, the node returns the effective priority fee at each percentile from the transactions in that block. For example, `[25, 50, 75]` returns 25th, 50th, and 75th percentile values.
+</ParamField>
+
+## Returns
+
+<ResponseField name="result" type="object">
+  Fee history data for the requested range.
+
+  <Expandable title="Fee history fields">
+    <ResponseField name="oldestBlock" type="string">
+      Block number of the oldest block in the returned range.
+    </ResponseField>
+    <ResponseField name="baseFeePerGas" type="array">
+      Array of base fees per gas for each block in the range, plus one extra entry for the next block after the range. Length is `blockCount + 1`.
+    </ResponseField>
+    <ResponseField name="gasUsedRatio" type="array">
+      Array of gas used ratios (values between 0 and 1) for each block in the range.
+    </ResponseField>
+    <ResponseField name="reward" type="array">
+      Array of arrays containing the priority fees at each requested percentile for each block. Only present when `rewardPercentiles` is provided.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "eth_feeHistory",
+  "params": [4, "latest", [25, 75]],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "oldestBlock": "0x12ced25",
+    "baseFeePerGas": [
+      "0x3b9aca00",
+      "0x3b9aca00",
+      "0x3b9aca00",
+      "0x3b9aca00",
+      "0x3b9aca00"
+    ],
+    "gasUsedRatio": [0.21, 0.45, 0.12, 0.67],
+    "reward": [
+      ["0x3b9aca00", "0x77359400"],
+      ["0x3b9aca00", "0x77359400"],
+      ["0x3b9aca00", "0x77359400"],
+      ["0x3b9aca00", "0x77359400"]
+    ]
+  }
+}
+```
+</CodeGroup>

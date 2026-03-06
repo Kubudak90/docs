@@ -1,0 +1,45 @@
+---
+title: 'newFlashblockTransactions'
+sidebarTitle: 'newFlashblockTransactions'
+description: 'Subscribe to receive each transaction as it is preconfirmed into a Flashblock.'
+---
+
+Subscribe to receive each transaction as it is preconfirmed. Pass `true` as the second parameter to receive full transaction and log data in each message.
+
+<Info>This method is only available on [Flashblocks-aware endpoints](/base-chain/flashblocks/apps#rpc-endpoints). Connect to `https://mainnet-preconf.base.org` (or `https://sepolia-preconf.base.org`) to use it.</Info>
+
+<Note>
+Requires [base/base](https://github.com/base/base) minimum client version v0.3.1.
+</Note>
+
+## Parameters
+
+<ParamField body="subscriptionType" type="string" required>
+  Must be `"newFlashblockTransactions"`.
+</ParamField>
+
+<ParamField body="full" type="boolean">
+  Optional. If `true`, each notification includes the full transaction object and associated logs. If `false` or omitted, notifications contain minimal transaction data.
+</ParamField>
+
+## Returns
+
+<ResponseField name="result" type="string">
+  Hex-encoded subscription ID.
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Subscribe
+{"jsonrpc": "2.0", "id": 1, "method": "eth_subscribe", "params": ["newFlashblockTransactions"]}
+```
+
+```json Subscribe (full data)
+{"jsonrpc": "2.0", "id": 1, "method": "eth_subscribe", "params": ["newFlashblockTransactions", true]}
+```
+
+```json Subscription ID Response
+{"jsonrpc": "2.0", "id": 1, "result": "0x1887ec8b9589ccad00000000000532da"}
+```
+</CodeGroup>

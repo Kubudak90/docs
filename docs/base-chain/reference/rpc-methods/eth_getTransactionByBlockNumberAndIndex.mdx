@@ -1,0 +1,52 @@
+---
+title: 'eth_getTransactionByBlockNumberAndIndex'
+sidebarTitle: 'eth_getTransactionByBlockNumberAndIndex'
+description: 'Returns transaction information for a given block number and transaction index position.'
+---
+
+Returns transaction information for a given block number and transaction index position.
+
+## Parameters
+
+<ParamField body="blockParameter" type="string" required>
+  Block number in hexadecimal, or a block tag: `latest`, `earliest`, `pending`, `safe`, or `finalized`.
+</ParamField>
+
+<ParamField body="transactionIndex" type="string" required>
+  The transaction's index position in the block as a hexadecimal integer.
+</ParamField>
+
+## Returns
+
+<ResponseField name="result" type="object | null">
+  A transaction object with the same fields as [`eth_getTransactionByHash`](/base-chain/reference/rpc-methods/eth_getTransactionByHash), or `null` if no transaction was found at that position.
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionByBlockNumberAndIndex",
+  "params": ["latest", "0x0"],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "hash": "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
+    "blockNumber": "0x12ced28",
+    "transactionIndex": "0x0",
+    "from": "0xd3CdA913deB6f4967b2Ef66ae97DE114a83bcc01",
+    "to": "0x4200000000000000000000000000000000000006",
+    "value": "0x2c68af0bb14000",
+    "type": "0x2"
+  }
+}
+```
+</CodeGroup>

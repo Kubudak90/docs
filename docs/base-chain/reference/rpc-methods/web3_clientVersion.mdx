@@ -1,0 +1,38 @@
+---
+title: 'web3_clientVersion'
+sidebarTitle: 'web3_clientVersion'
+description: 'Returns a string identifying the node client software and version.'
+---
+
+Returns a string identifying the node client software and version.
+
+## Parameters
+
+No parameters.
+
+## Returns
+
+<ResponseField name="result" type="string">
+  A string in the format `<client>/<version>/<os>/<runtime>`.
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "web3_clientVersion",
+  "params": [],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "op-geth/v1.101411.0/linux-amd64/go1.21.0"
+}
+```
+</CodeGroup>

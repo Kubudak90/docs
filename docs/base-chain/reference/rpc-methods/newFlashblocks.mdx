@@ -1,0 +1,74 @@
+---
+title: 'newFlashblocks'
+sidebarTitle: 'newFlashblocks'
+description: 'Subscribe to receive full block state updates as each Flashblock is built.'
+---
+
+<Warning>
+Each subscription emits **one item per WebSocket message**. Events arrive approximately every 200ms. If your application performs heavy processing per event, throttle or debounce your handler to avoid blocking.
+</Warning>
+
+Subscribe to receive full block state updates as each Flashblock is built. Each message contains the accumulated preconfirmed state for the block in progress.
+
+<Info>This method is only available on [Flashblocks-aware endpoints](/base-chain/flashblocks/apps#rpc-endpoints). Connect to `https://mainnet-preconf.base.org` (or `https://sepolia-preconf.base.org`) to use it.</Info>
+
+<Note>
+Requires [base/base](https://github.com/base/base) minimum client version v0.3.1.
+</Note>
+
+## Parameters
+
+<ParamField body="subscriptionType" type="string" required>
+  Must be `"newFlashblocks"`.
+</ParamField>
+
+## Returns
+
+<ResponseField name="result" type="string">
+  Hex-encoded subscription ID.
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Subscribe
+{"jsonrpc": "2.0", "id": 1, "method": "eth_subscribe", "params": ["newFlashblocks"]}
+```
+
+```json Subscription ID Response
+{"jsonrpc": "2.0", "id": 1, "result": "0x3b8cd9e5f4a7b2c1d0e3f4a5b6c7d8e9"}
+```
+</CodeGroup>
+
+**JavaScript example:**
+
+```javascript
+import WebSocket from 'ws';
+
+// Use a WSS RPC endpoint — not the raw Flashblock WebSocket stream
+const ws = new WebSocket('wss://your-provider.example.com/ws');
+
+ws.on('open', () => {
+  ws.send(JSON.stringify({
+    jsonrpc: '2.0',
+    method: 'eth_subscribe',
+    params: ['newFlashblockTransactions'],
+    id: 1
+  }));
+});
+
+ws.on('message', (data) => {
+  const response = JSON.parse(data.toString());
+  if (response.method === 'eth_subscription') {
+    console.log('Preconfirmed transaction:', response.params.result);
+  }
+});
+
+ws.on('error', (error) => {
+  console.error('WebSocket error:', error);
+});
+
+ws.on('close', () => {
+  console.log('WebSocket connection closed');
+});
+```

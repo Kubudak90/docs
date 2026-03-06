@@ -1,0 +1,38 @@
+---
+title: 'eth_gasPrice'
+sidebarTitle: 'eth_gasPrice'
+description: 'Returns the current gas price suggested for legacy (type 0x0) transactions.'
+---
+
+Returns the current gas price suggested for legacy (type `0x0`) transactions.
+
+## Parameters
+
+No parameters.
+
+## Returns
+
+<ResponseField name="result" type="string">
+  Current gas price in wei as a hexadecimal string.
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```json Request
+{
+  "jsonrpc": "2.0",
+  "method": "eth_gasPrice",
+  "params": [],
+  "id": 1
+}
+```
+
+```json Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "0x3b9aca00"
+}
+```
+</CodeGroup>
